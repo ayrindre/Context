@@ -1,1 +1,55 @@
-1
+رشته اتصال :
+
+namespace DataLayer.Context
+{
+    public class shopContext : DbContext
+    {
+        public shopContext(DbContextOptions<shopContext> options) : base(options)
+        {
+        }
+        /* Tbls */
+        public DbSet<Tbl_User> Tbl_Users { get; set; }
+        public DbSet<Tbl_PazirandeUser> Tbl_PazirandeUsers { get; set; }
+        public DbSet<Tbl_Pazirande> Tbl_Pazirandes { get; set; }
+        public DbSet<Tbl_Support> Tbl_Supports {get; set;}
+        public DbSet<Tbl_ClassCodes> Tbl_ClassCodess {get; set;}
+    }
+    public class ToDoContextFactory : IDesignTimeDbContextFactory<shopContext>
+    {
+        public shopContext CreateDbContext(string[] args)
+        {
+            var builder = new DbContextOptionsBuilder<shopContext>();
+            builder.UseSqlServer("Data Source=.;initial Catalog=shop;integrated Security=SSPI;MultipleActiveResultSets=true");
+            //  builder.UseSqlServer("Data Source=193.141.64.76,2019;initial Catalog=hampadco;USER ID=hampadco;PASSWORD=12345@iran;MultipleActiveResultSets=true");
+
+            return new shopContext(builder.Options);
+        }
+    }
+}
+----------------------------------------------------------
+startup :
+
+            services.AddDbContext<shopContext>(option =>
+            {
+                option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+-----------------------------------------------------------
+json :
+{
+  "ConnectionStrings":
+  {
+    "DefaultConnection": "Data Source=.;initial Catalog=shop;integrated Security=SSPI;MultipleActiveResultSets=true"
+  }
+}
+-----------------------------------------------------------
+controller :
+
+ public readonly HampadcoContext db;
+ 
+        public AccountController(HampadcoContext _db)
+        {
+            db = _db;
+        }
+		
+		
+		///////////for use database call db////////////////
