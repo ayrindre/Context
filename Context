@@ -30,5 +30,8 @@ appsettings.json
 {
     "ConnectionStrings": {
         "DefaultConnection": "Server=.;Database=AirLine;Trusted_Connection=True;MultipleActiveResultSets=true"
+        
+        
+      //Server=.;Initial Catalog=Test;Integrated Security=true;User Id=dbDeveloper;Password=dbDeveloper123;
     }
 }
